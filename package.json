@@ -1,0 +1,19 @@
+{
+  "name": "multichain-golang-indexer",
+  "version": "1.0.0",
+  "description": "A multi-chain smart contracts indexer in Go",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charafzellou/multichain-golang-indexer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charafzellou/multichain-golang-indexer/issues"
+  },
+  "homepage": "https://github.com/charafzellou/multichain-golang-indexer#readme"
+}
