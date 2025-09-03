@@ -1,0 +1,65 @@
+version: '3.8'
+services:
+  database:
+    restart: always
+    image: postgres:15.1-alpine
+    environment:
+      POSTGRES_USER: postgresuser
+      POSTGRES_PASSWORD: postgrespwd
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  pgadmin4:
+    restart: always
+    image: dpage/pgadmin4:6.19
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@example.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+      - pgadmin4-data:/pgadmin4
+    depends_on:
+      - database
+
+  hasura:
+    restart: always
+    image: hasura/graphql-engine:v2.17.1-ce
+    ports:
+      - "8080:8080"
+    environment:
+      HASURA_GRAPHQL_ADMIN_SECRET: mysecretkey
+      HASURA_GRAPHQL_CORS_DOMAIN: "*"
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgresuser:postgrespwd@database:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+    depends_on:
+      - database
+
+  # backend:
+  #   restart: always
+  #   build:
+  #     context: ./backend/
+  #     dockerfile: Dockerfile
+  #   ports:
+  #   - "3200:3200"
+  #   depends_on:
+  #     - database
+
+  # frontend:
+  #   restart: always
+  #   build:
+  #     context: ./frontend/
+  #     dockerfile: Dockerfile
+  #   ports:
+  #   - "3000:3000"
+  #   depends_on:
+  #     - database
+  #     - hasura
+  #     - backend
+
+volumes:
+  postgres-data:
+  pgadmin4-data:

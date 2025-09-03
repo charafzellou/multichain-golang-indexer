@@ -1,0 +1,23 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: SewerPass
+    network: mainnet
+    source:
+      address: "0x764aeebcf425d56800ef2c84f2578689415a2daa"
+      abi: SewerPass
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: SewerPass
+          file: ./abis/SewerPass.json
+      eventHandlers:
+        - event: Transfer(address, address, uint256)
+          handler: handleTransfer
+      file: ./src/sewer-pass.ts
